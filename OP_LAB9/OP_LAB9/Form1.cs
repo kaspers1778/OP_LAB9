@@ -28,12 +28,12 @@ namespace OP_LAB9
             if(file.ShowDialog() == DialogResult.OK)
             {
                 Text = File.ReadAllText(file.FileName);
+                file.Dispose();
                 dgv_Output.Rows.Clear();
                 dgv_words.Rows.Clear();
             }
             Text = Regex.Replace(Text, @"[\r]", " ");
             Text = Regex.Replace(Text, @"[\n]", "");
-            Text = Regex.Replace(Text, @"[\s]$", "");
             Text = Regex.Replace(Text, @"[^\w\s]", "");
                 
            
@@ -47,10 +47,10 @@ namespace OP_LAB9
                 if (!sortedLetters.ContainsKey(letter))
                 {
                    
-                    sortedLetters.Add(letter, 0);
+                    sortedLetters.Add(letter, 1);
                     
                 }
-                if (sortedLetters.ContainsKey(letter))
+                else
                 {
                     tmp = sortedLetters[letter];
                     sortedLetters.Remove(letter);
@@ -73,10 +73,10 @@ namespace OP_LAB9
                 if (!sortedWords.ContainsKey(word))
                 {
 
-                    sortedWords.Add(word, 0);
+                    sortedWords.Add(word, 1);
 
                 }
-                if (sortedWords.ContainsKey(word))
+                else
                 {
                     tmp = sortedWords[word];
                     sortedWords.Remove(word);
