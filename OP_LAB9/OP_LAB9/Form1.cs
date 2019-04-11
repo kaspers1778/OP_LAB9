@@ -31,9 +31,11 @@ namespace OP_LAB9
                 dgv_Output.Rows.Clear();
                 dgv_words.Rows.Clear();
             }
-            
+            Text = Regex.Replace(Text, @"[\r]", " ");
+            Text = Regex.Replace(Text, @"[\n]", "");
+            Text = Regex.Replace(Text, @"[\s]$", "");
             Text = Regex.Replace(Text, @"[^\w\s]", "");
-            
+                
            
             char[] letters;
             letters = Regex.Replace(Text, @"[^\w]", "").ToCharArray();
