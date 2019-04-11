@@ -28,12 +28,15 @@ namespace OP_LAB9
             if(file.ShowDialog() == DialogResult.OK)
             {
                 Text = File.ReadAllText(file.FileName);
+                dgv_Output.Rows.Clear();
+                dgv_words.Rows.Clear();
             }
+            
             Text = Regex.Replace(Text, @"[^\w\s]", "");
-
-
+            
+           
             char[] letters;
-            letters = Text.ToCharArray();
+            letters = Regex.Replace(Text, @"[^\w]", "").ToCharArray();
             SortedList<char, int> sortedLetters = new SortedList<char, int>();
             int tmp;
 
@@ -52,6 +55,11 @@ namespace OP_LAB9
                     sortedLetters.Add(letter, tmp + 1);
                     tmp = 0;
                 }
+            }
+
+            foreach(var letter in sortedLetters)
+            {
+                dgv_Output.Rows.Add(letter.Key, letter.Value);
             }
             
             string[] words;
@@ -75,12 +83,13 @@ namespace OP_LAB9
                 }
             }
 
-            foreach(var el in sortedWords)
+            foreach (var word in sortedWords)
             {
-                textBox1.Text += el.Key + " : " + el.Value + "\r\n";
+                
+              dgv_words.Rows.Add(word.Key, word.Value);
+                
             }
-
-
+            
         }
         
         public class Letter
@@ -105,6 +114,16 @@ namespace OP_LAB9
                 this.body = body;
                 this.amount = amount;
             }
+        }
+
+        private void dgv_Output_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgv_words_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
